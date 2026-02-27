@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Disney Roadmap - Damian Player</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; color: #fff; font-family: 'Courier New', Courier, monospace; overflow-x: hidden; }
+.grain { position: fixed; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; }
+.container { max-width: 920px; margin: 0 auto; padding: 48px 24px; }
+.title-section { text-align: center; margin-bottom: 16px; }
+.tag { font-size: 11px; letter-spacing: 6px; color: #c8ff00; margin-bottom: 12px; font-weight: 700; }
+.headline { font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 1.1; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.mission { font-size: 13px; color: #999; margin-top: 14px; line-height: 1.5; }
+.flow-label { text-align: center; margin: 32px 0 8px; font-size: 10px; letter-spacing: 4px; color: #666; }
+.funnel { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.layer-wrap { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.connector { width: 1px; height: 24px; margin: 0 auto; }
+.card { background: #141414; border: 1px solid #222; border-radius: 8px; padding: 20px 24px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+.card:hover { border-color: var(--color-66); background: var(--bg-color); }
+.card.active { background: var(--bg-color); border-color: var(--color); }
+.card-glow { position: absolute; top: 0; left: 0; right: 0; height: 1px; transition: all 0.3s ease; }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.card-left { flex: 1; min-width: 0; }
+.card-labels { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+.card-icon { font-size: 16px; flex-shrink: 0; }
+.card-label { font-size: 15px; font-weight: 700; letter-spacing: 1.5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; flex-shrink: 0; }
+.card-sublabel { font-size: 9px; letter-spacing: 3px; color: #666; flex-shrink: 0; }
+.card-tagline { font-size: 13px; color: #999; line-height: 1.4; }
+.card-right { text-align: right; flex-shrink: 0; margin-left: 20px; }
+.card-metric { font-size: 14px; font-weight: 700; white-space: nowrap; }
+.card-audience { font-size: 9px; letter-spacing: 2px; color: #666; margin-top: 2px; }
+.card-expand { display: none; margin-top: 16px; padding-top: 16px; }
+.card.active .card-expand { display: block; }
+.section-title { font-size: 10px; letter-spacing: 3px; font-weight: 700; margin-bottom: 10px; opacity: 0.8; }
+.bullet-item { display: flex; gap: 10px; margin-bottom: 7px; font-size: 12px; color: #999; line-height: 1.5; }
+.bullet-dot { flex-shrink: 0; font-size: 8px; margin-top: 4px; }
+.section-group { margin-bottom: 20px; }
+.section-group:last-child { margin-bottom: 0; }
+.tap-hint { position: absolute; bottom: 8px; right: 12px; font-size: 9px; color: #666; opacity: 0.5; transition: opacity 0.2s ease; }
+.card.active .tap-hint { opacity: 0; }
+.feedback { margin-top: 48px; }
+.feedback-title { text-align: center; margin-bottom: 24px; }
+.feedback-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; }
+.loop-card { background: #141414; border: 1px solid #222; border-radius: 6px; padding: 14px 16px; transition: all 0.2s ease; }
+.loop-card:hover { background: #1a1a1a; }
+.loop-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.loop-name { font-size: 10px; font-weight: 700; }
+.loop-arrow { font-size: 11px; color: #666; }
+.loop-desc { font-size: 11px; color: #999; }
+.flywheel { margin-top: 48px; text-align: center; padding: 32px 24px; background: #141414; border: 1px solid #222; border-radius: 8px; }
+.flywheel-flow { font-size: 14px; color: #999; line-height: 2.2; max-width: 640px; margin: 0 auto; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.flywheel-bottom { margin-top: 20px; font-size: 12px; color: #fff; font-weight: 700; letter-spacing: 1px; }
+.footer { text-align: center; margin-top: 40px; padding-bottom: 32px; font-size: 10px; color: #666; letter-spacing: 2px; }
+.c-accent { color: #c8ff00; } .c-blue { color: #3B82F6; } .c-green { color: #10B981; } .c-gray { color: #666; }
+.fw700 { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="container">
+
+<div class="title-section">
+  <div class="tag">THE DISNEY ROADMAP</div>
+  <div class="headline">EVERY LAYER FEEDS<br>EVERY OTHER LAYER</div>
+  <div class="mission">the world is shifting to AI-native.<br>my mission is making sure no one gets left behind.</div>
+</div>
+
+<div class="flow-label">FUNNEL FLOW ▼</div>
+
+<div class="funnel">
+
+  <!-- MEDIA LAYER -->
+  <div class="layer-wrap" style="width:100%">
+    <div class="card" id="card-media" onclick="toggle('media')" style="--color:#c8ff00;--color-66:#c8ff0066;--bg-color:#1a1f0a">
+      <div class="card-glow" style="background:linear-gradient(90deg,transparent,#c8ff0022,transparent)"></div>
+      <div class="card-header">
+        <div class="card-left">
+          <div class="card-labels">
+            <span class="card-icon" style="color:#c8ff00">◉</span>
+            <span class="card-label" style="color:#c8ff00">MEDIA LAYER</span>
+            <span class="card-sublabel">DAMIAN PLAYER AT THE CENTER</span>
+          </div>
+          <div class="card-tagline">own the attention. own the narrative. 100M+ views/month target.</div>
+        </div>
+        <div class="card-right">
+          <div class="card-metric" style="color:#c8ff00">100M+ views/mo</div>
+          <div class="card-audience">MILLIONS</div>
+        </div>
+      </div>
+      <div class="card-expand" id="expand-media" style="border-top:1px solid #c8ff0022">
+        <div class="section-group"><div class="section-title" style="color:#c8ff00">DAMIAN PLAYER (the center of everything)</div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>10M+ views/month across X, LinkedIn, TikTok, YouTube, Instagram</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>1M follower target. the face and voice of the entire ecosystem.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>builds in public. AI adoption, operator lifestyle, venture updates.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>every piece of content from every layer feeds back through damian.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>the personal brand is the moat. AI commoditizes skills. distribution doesn't get commoditized.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>SC Young Entrepreneur of the Year. previous exit at 2x. 5,000+ students trained.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#c8ff00">PODCAST</div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>long-form trust builder. 45 min/week in their ear.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>interviews with founders, operators, venture partners, portfolio CEOs</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>every guest is a potential oplined applicant or venture deal</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>clips feed back into socials. one episode = 10-15 pieces of content.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>positions damian as the center of the AI operator movement</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>amplifies oplined messaging and venture studio deal flow organically</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#c8ff00">ACQUIRED NETWORKS (JV w/ Sascha)</div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>buy niche social accounts in AI, SaaS, construction, insurance, ecommerce verticals</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>target: accounts with 50K-500K followers and engaged audiences</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>buy distribution that already exists. don't build from zero.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>cross-pollinate audiences across the full portfolio</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>each acquired account becomes a funnel into oplined and venture studio</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>1 strategist per 5-7 accounts. AI content engine handles production.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>unit economics: $30K-$80K net per account per month</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#c8ff00">NEWSLETTERS</div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>acquire newsletters with 10K-100K+ subscribers</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>direct inbox access. highest trust channel outside of podcast.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>monetize through oplined CTAs, ad placements ($2.5K-$10K per placement), and venture deal flow</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>each newsletter is a targeted vertical funnel into the ecosystem</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>combined subscriber target: 50K-100K+</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#c8ff00">THE PLAY</div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>damian is the center. acquired media extends the reach.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>100M+ combined organic views/month across the portfolio</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>you don't rent attention. you own the pipes.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>every account, newsletter, podcast, and network feeds the layers below</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#c8ff00">▸</span><span>ad revenue alone funds the entire operation. everything else is upside.</span></div></div>
+      </div>
+      <div class="tap-hint">tap to expand</div>
+    </div>
+  </div>
+
+  <!-- Connector -->
+  <div class="connector" style="background:linear-gradient(to bottom,#c8ff0044,#3B82F644)"></div>
+
+  <!-- OPLINED -->
+  <div class="layer-wrap" style="width:85%">
+    <div class="card" id="card-oplined" onclick="toggle('oplined')" style="--color:#3B82F6;--color-66:#3B82F666;--bg-color:#0a1220">
+      <div class="card-glow" style="background:linear-gradient(90deg,transparent,#3B82F622,transparent)"></div>
+      <div class="card-header">
+        <div class="card-left">
+          <div class="card-labels">
+            <span class="card-icon" style="color:#3B82F6">◈</span>
+            <span class="card-label" style="color:#3B82F6">OPLINED</span>
+            <span class="card-sublabel">DEAL FLOW MACHINE</span>
+          </div>
+          <div class="card-tagline">free value to market. hundreds of applicants/month. you define the role.</div>
+        </div>
+        <div class="card-right">
+          <div class="card-metric" style="color:#3B82F6">300+ apps/mo</div>
+          <div class="card-audience">HUNDREDS</div>
+        </div>
+      </div>
+      <div class="card-expand" id="expand-oplined" style="border-top:1px solid #3B82F622">
+        <div class="section-group"><div class="section-title" style="color:#3B82F6">WHAT IT IS</div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>the application platform for AI operators and companies needing fractional AI talent</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>nobody has defined the AI operator role yet. oplined defines it.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>you control the source of truth. you set the credential. you own the category.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>framing: so much demand for this undefined role, we built a company around it</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>not a job board. a category creation play.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#3B82F6">TWO SIDES OF THE MARKETPLACE</div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>operators apply to get placed. companies apply for fractional AI operators.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>founders submit businesses for AI transformation evaluation</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>AI scores every application on revenue, vertical, growth rate, founder quality</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>first pass automated. second pass your team pulls top 10-15%. you only see the shortlist.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>300+ applications/month. 95% served through the marketplace.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#3B82F6">WHAT OPLINED GIVES YOU</div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>market intelligence nobody else has. you see hundreds of businesses per month.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>their revenue, bottlenecks, team size, industry, willingness to pay.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>you know which verticals are hot before anyone publishes a report.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>every application is a potential dev client, venture partner, or operator placement.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>the cream rises. 2-3 per quarter become venture studio deals.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#3B82F6">THE POSITIONING</div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>free value to the market. easily marketable. simple pitch.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>'apply to get matched with an AI operator' or 'get your business evaluated for AI transformation'</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>the frontend is free value. the backend is deal sourcing.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>selective. transformation only. no one-off dev work.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>we sell the transformation and are selective with whom we take on.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#3B82F6">AI-NATIVE PRODUCT BUILDS</div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>oplined also houses a section for AI-native product and platform builds</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>founders with validated ideas apply to get their concept scoped and evaluated</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>accepted projects route to the venture studio for co-building</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>rejected projects still get served through operator placements or dev referrals</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#3B82F6">▸</span><span>nobody leaves empty handed. the best ones get you.</span></div></div>
+      </div>
+      <div class="tap-hint">tap to expand</div>
+    </div>
+  </div>
+
+  <!-- Connector -->
+  <div class="connector" style="background:linear-gradient(to bottom,#3B82F644,#10B98144)"></div>
+
+  <!-- VENTURE STUDIO -->
+  <div class="layer-wrap" style="width:70%">
+    <div class="card" id="card-ventures" onclick="toggle('ventures')" style="--color:#10B981;--color-66:#10B98166;--bg-color:#0a1a14">
+      <div class="card-glow" style="background:linear-gradient(90deg,transparent,#10B98122,transparent)"></div>
+      <div class="card-header">
+        <div class="card-left">
+          <div class="card-labels">
+            <span class="card-icon" style="color:#10B981">◆</span>
+            <span class="card-label" style="color:#10B981">VENTURE STUDIO</span>
+            <span class="card-sublabel">WHERE DAMIAN LIVES</span>
+          </div>
+          <div class="card-tagline">2-3 deals/quarter. real equity. real upside. this is the endgame.</div>
+        </div>
+        <div class="card-right">
+          <div class="card-metric" style="color:#10B981">2-3 deals/qtr</div>
+          <div class="card-audience">HANDFUL</div>
+        </div>
+      </div>
+      <div class="card-expand" id="expand-ventures" style="border-top:1px solid #10B98122">
+        <div class="section-group"><div class="section-title" style="color:#10B981">THE MODEL</div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>hand-selected deals from oplined's top applicants</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>platform partnerships. co-owned AI products. JV equity deals.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>cofounder model. same risk, same upside. no contractors. no handoffs.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>we don't charge dev fees. we take equity.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>if the company works, both sides win. if it doesn't, both sides lose.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>this is where damian spends his actual time.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#10B981">WHAT YOU BRING</div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>full AI-native dev team from day one. engineering, product, deployment.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>product architecture built for their vertical</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>GTM strategy and distribution through 10M+ views/month media layer</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>embedded team post-launch. you don't hand off and disappear.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>playbook library from 50+ client engagements across verticals</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#10B981">WHAT THEY BRING</div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>5-15 years of domain expertise. they know every broken workflow.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>distribution. clients trust them. partners take their calls.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>market access most startups spend 3 years trying to build</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>the technology is your problem. the market is theirs.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#10B981">HOW IT WORKS</div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>apply through oplined. AI scores the application.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>top candidates evaluated on: founder-market fit, opportunity size, speed to revenue</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>accepted founders get full dev team. working product in 30-60 days.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>equity split negotiated per deal based on what each side contributes</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>ongoing technical leadership post-launch. embedded, not outsourced.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>10-15 applications/month. 1-2 accepted. the rest get served through oplined.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#10B981">ACTIVE VERTICALS</div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>insurance, real estate, healthcare, construction, ecommerce, lending</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>commercial lending (Hybrid w/ Cameron), SBA lending (Amplifi w/ Ray)</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>medical platforms (Disease Directory w/ Stefan/Venture Factory)</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>DTC brands, property management, dermatology, HVAC</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>every engagement compounds. systems built in one vertical inform the next.</span></div></div>
+        <div class="section-group"><div class="section-title" style="color:#10B981">THE 3-YEAR WINDOW</div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>venture studios reach series A in 25 months vs 56 months for traditional startups</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>studios report 53% avg IRR vs 21% for traditional VC</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>studio companies get acquired 33% faster and IPO 31% faster</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>1,107 venture studios globally, up from 90 in 2013. 625% growth in a decade.</span></div><div class="bullet-item"><span class="bullet-dot" style="color:#10B981">▸</span><span>the window for AI-native venture studios is 2-3 years. then it's saturated.</span></div></div>
+      </div>
+      <div class="tap-hint">tap to expand</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Feedback Loops -->
+<div class="feedback">
+  <div class="feedback-title">
+    <span style="font-size:10px;letter-spacing:4px;color:#666">▲ FEEDBACK LOOPS ▲</span>
+    <div style="font-size:12px;color:#999;margin-top:8px">everything flows back up. results become content. content drives applicants. applicants become deals.</div>
+  </div>
+  <div class="feedback-grid">
+    <div class="loop-card"><div class="loop-header"><span class="loop-name" style="color:#10B981">STUDIO</span><span class="loop-arrow">→</span><span class="loop-name" style="color:#c8ff00">MEDIA</span></div><div class="loop-desc">case studies, results, portfolio stories → content across all channels</div></div>
+    <div class="loop-card"><div class="loop-header"><span class="loop-name" style="color:#3B82F6">OPLINED</span><span class="loop-arrow">→</span><span class="loop-name" style="color:#c8ff00">MEDIA</span></div><div class="loop-desc">operator placement stories + marketplace data → content engine</div></div>
+    <div class="loop-card"><div class="loop-header"><span class="loop-name" style="color:#3B82F6">OPLINED</span><span class="loop-arrow">→</span><span class="loop-name" style="color:#10B981">STUDIO</span></div><div class="loop-desc">top 1-2% of applicants filtered → hand-selected equity deals</div></div>
+    <div class="loop-card"><div class="loop-header"><span class="loop-name" style="color:#c8ff00">MEDIA</span><span class="loop-arrow">→</span><span class="loop-name" style="color:#3B82F6">OPLINED</span></div><div class="loop-desc">10M+ views/month + acquired audiences → hundreds of applications</div></div>
+    <div class="loop-card"><div class="loop-header"><span class="loop-name" style="color:#10B981">STUDIO</span><span class="loop-arrow">→</span><span class="loop-name" style="color:#3B82F6">OPLINED</span></div><div class="loop-desc">launched products need operators → marketplace demand</div></div>
+    <div class="loop-card"><div class="loop-header"><span class="loop-name" style="color:#c8ff00">MEDIA</span><span class="loop-arrow">→</span><span class="loop-name" style="color:#10B981">STUDIO</span></div><div class="loop-desc">brand credibility → inbound from founders who already trust you</div></div>
+  </div>
+</div>
+
+<!-- Flywheel -->
+<div class="flywheel">
+  <div style="font-size:10px;letter-spacing:4px;color:#c8ff00;margin-bottom:16px">THE FLYWHEEL</div>
+  <div class="flywheel-flow">
+    <span class="c-accent fw700">media layer</span><span class="c-gray"> owns attention → </span><span class="c-blue fw700">oplined</span><span class="c-gray"> captures demand + defines the role → </span><span class="c-green fw700">venture studio</span><span class="c-gray"> co-builds companies → results become content → </span><span class="c-accent fw700">repeat</span>
+  </div>
+  <div class="flywheel-bottom">damian player is the center. every layer feeds every other layer.</div>
+</div>
+
+<div class="footer">DAMIAN PLAYER × MEDIA LAYER × OPLINED × VENTURE STUDIO</div>
+
+</div>
+
+<script>
+let current = null;
+function toggle(id) {
+  const cards = ['media','oplined','ventures'];
+  if (current === id) {
+    document.getElementById('card-' + id).classList.remove('active');
+    current = null;
+  } else {
+    cards.forEach(c => document.getElementById('card-' + c).classList.remove('active'));
+    document.getElementById('card-' + id).classList.add('active');
+    current = id;
+  }
+}
+</script>
+</body>
+</html>
